@@ -13,10 +13,10 @@ int main()
     cout << layer;
     cout << laye1;*/
     try {
-        Neuron<double> neuron(LAYER_TYPE::HIDDEN, 2);
-        neuron.set_activation_type(ACTIVATION_FUNC::SWISH);
+        /*Neuron<double> neuron(LAYER_TYPE::HIDDEN, 2);
+        neuron.set_activation_type(ACTIVATION_FUNC::SWISH);*/
         //neuron.set_print_mode(/*NEURON_PRINT_MODE_ID*/);
-        Vector<double> inputs(2);
+        /*Vector<double> inputs(2);
         inputs[0] = 5;
         inputs[1] = 5;
         neuron.modify_weight(0.3, 0);
@@ -26,9 +26,15 @@ int main()
         neuron.generate_outputs();
         cout << neuron;
         cout << neuron.get_net_i() << endl;
-        cout << neuron.get_activated_net_i();
+        cout << neuron.get_activated_net_i();*/
+
+        Layer<double> layer(5, LAYER_TYPE::HIDDEN, 5);
+        layer.set_max_node_weight(5.0);
+        cout << layer;
     }
     catch (exception e) {
+
+
         cout << e.what();
     }
     return 0;

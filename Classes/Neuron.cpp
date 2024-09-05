@@ -14,9 +14,9 @@ private:
 	datatype data = NULL;
 	double lambda = 0.3;
 	// Saves value of output that has not been modified using activation function.
-	datatype net_i = 0;
+	datatype net_i = NULL;
 	// Saves value of output that is modified with activation function.
-	datatype func_net_i = 0;
+	datatype func_net_i = NULL;
 
 	Vector<datatype> weights;
 	Vector<datatype> inputs;
@@ -25,7 +25,7 @@ private:
 	bool initiated = true;
 
 	LAYER_TYPE layer = LAYER_TYPE::INPUT;
-	NEURON_PRINT_MODE print_mode = NEURON_PRINT_MODES_ALL;
+	NEURON_PRINT_MODE print_mode = NEURON_PRINT_MODES_NONE;
 	ACTIVATION_FUNC activation_type = ACTIVATION_FUNC::U_SIGMOID;
 
 public:
@@ -86,7 +86,7 @@ public:
 		}
 		weights[position] = data;
 	}
-	datatype  generate_outputs() {
+	datatype generate_outputs() {
 		for (int i = 0; i < prev_layer_size; i++) {
 			net_i += inputs[i];
 		}
@@ -183,8 +183,20 @@ std::ostream& operator<<(std::ostream& out, const Neuron<datatype>& neuron)
 
 	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_OUTPUTS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
 	{
-		out << "Net Output (before activation): " << neuron.net_i << '\n';
-		out << "Activated Output: " << neuron.func_net_i << '\n';
+		if (neuron.net_i != NULL) {
+			out << "Net Output (before activation): " << (neuron.net_i) << '\n';
+		}
+		else {
+			out << "Net Output (before activation): pending..." << '\n';
+		}
+		if (neuron.func_net_i != NULL) {
+
+			out << "Activated Output: " << neuron.func_net_i << '\n';
+		}
+		else {
+			out << "Activated Output: pending..." << '\n';
+		}
+
 	}
 
 	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ACTIVATION_FUNC || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
