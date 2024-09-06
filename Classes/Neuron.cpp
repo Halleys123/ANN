@@ -103,21 +103,21 @@ public:
 		case ACTIVATION_FUNC::B_BINARY:
 			func_net_i = ActivationFunctions::b_binary(net_i);
 			break;
-		case ACTIVATION_FUNC::SWISH:
-			func_net_i = ActivationFunctions::swish(net_i);
-			break;
-		case ACTIVATION_FUNC::RELU:
-			func_net_i = ActivationFunctions::relu(net_i);
-			break;
-		case ACTIVATION_FUNC::TANH:
-			func_net_i = ActivationFunctions::tanh_func(net_i);
-			break;
-		case ACTIVATION_FUNC::LEAKY_RELU:
-			func_net_i = ActivationFunctions::leaky_relu(net_i);
-			break;
-		case ACTIVATION_FUNC::LINEAR:
-			func_net_i = ActivationFunctions::linear(net_i);
-			break;
+		//case ACTIVATION_FUNC::SWISH:
+		//	func_net_i = ActivationFunctions::swish(net_i);
+		//	break;
+		//case ACTIVATION_FUNC::RELU:
+		//	func_net_i = ActivationFunctions::relu(net_i);
+		//	break;
+		//case ACTIVATION_FUNC::TANH:
+		//	func_net_i = ActivationFunctions::tanh_func(net_i);
+		//	break;
+		//case ACTIVATION_FUNC::LEAKY_RELU:
+		//	func_net_i = ActivationFunctions::leaky_relu(net_i);
+		//	break;
+		//case ACTIVATION_FUNC::LINEAR:
+		//	func_net_i = ActivationFunctions::linear(net_i);
+		//	break;
 		default:
 			throw std::invalid_argument("Invalid activation type");
 		}
@@ -216,21 +216,21 @@ std::ostream& operator<<(std::ostream& out, const Neuron<datatype>& neuron)
 		case ACTIVATION_FUNC::B_BINARY:
 			out << "Bipolar Binary\n";
 			break;
-		case ACTIVATION_FUNC::SWISH:
-			out << "Swish\n";
-			break;
-		case ACTIVATION_FUNC::RELU:
-			out << "ReLU\n";
-			break;
-		case ACTIVATION_FUNC::TANH:
-			out << "Tanh\n";
-			break;
-		case ACTIVATION_FUNC::LEAKY_RELU:
-			out << "Leaky ReLU\n";
-			break;
-		case ACTIVATION_FUNC::LINEAR:
-			out << "Linear\n";
-			break;
+		//case ACTIVATION_FUNC::SWISH:
+		//	out << "Swish\n";
+		//	break;
+		//case ACTIVATION_FUNC::RELU:
+		//	out << "ReLU\n";
+		//	break;
+		//case ACTIVATION_FUNC::TANH:
+		//	out << "Tanh\n";
+		//	break;
+		//case ACTIVATION_FUNC::LEAKY_RELU:
+		//	out << "Leaky ReLU\n";
+		//	break;
+		//case ACTIVATION_FUNC::LINEAR:
+		//	out << "Linear\n";
+		//	break;
 		default:
 			out << "Unknown\n";
 		}

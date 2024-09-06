@@ -117,25 +117,6 @@ public:
 	void set_learning_rule(LEARNING_RULE rule) {
 		this->learning_rule = rule;
 	}
-	Vector<datatype> generate_output_test() {
-		Vector<datatype> inputs(node_count_per_layer[0]);
-		Vector<datatype> desired(node_count_per_layer[total_layers - 1]);
-		// iterate through all presentations
-		cout << "Total Presentations: " << total_presentations << endl;
-		for (int i = 0; i < total_presentations; i++) {
-			cout << "Presentation: " << i << endl;
-			// set inputs for input layer - handling the input layer
-			for (int k = 0; k < node_count_per_layer[0]; k++) {
-				inputs[k] = presentation_data[i][k];
-			}
-			// generate outputs
-			for (int k = 0; k < total_layers; k++) {
-				layers[k].set_inputs(inputs);
-				inputs = layers[k].generate_outputs();
-			}
-		}
-		return inputs;
-	}
 	template <typename datatype>
 	friend ostream& operator<<(ostream& out, const MLP<datatype>& mlp);
 };
