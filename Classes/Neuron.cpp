@@ -11,22 +11,22 @@ class Neuron
 	static int total_nodes;
 private:
 	int node_number = 0;
-	datatype data = NULL;
+	datatype bias = NULL;
 	double lambda = 0.3;
 	// Saves value of output that has not been modified using activation function.
-	datatype net_i = NULL;
+	datatype net_i = 0;
 	// Saves value of output that is modified with activation function.
-	datatype func_net_i = NULL;
+	datatype func_net_i = 0;
 
 	Vector<datatype> weights;
-	Vector<datatype> inputs;
+	//Vector<datatype> inputs;
 
 	int prev_layer_size = 0; // For using in the size of weights
 	bool initiated = true;
 
 	LAYER_TYPE layer = LAYER_TYPE::INPUT;
 	NEURON_PRINT_MODE print_mode = NEURON_PRINT_MODES_NONE;
-	ACTIVATION_FUNC activation_type = ACTIVATION_FUNC::U_SIGMOID;
+	ACTIVATION_FUNC activation_type = ACTIVATION_FUNC::B_SIGMOID;
 
 public:
 	Neuron()
@@ -86,9 +86,9 @@ public:
 		}
 		weights[position] = data;
 	}
-	datatype generate_outputs() {
+	datatype generate_outputs(Vector<datatype> inputs) {
 		for (int i = 0; i < prev_layer_size; i++) {
-			net_i += inputs[i];
+			net_i += inputs[i] * weights[i];
 		}
 		switch (activation_type) {
 		case ACTIVATION_FUNC::B_SIGMOID:
@@ -129,20 +129,20 @@ public:
 	datatype get_activated_net_i() {
 		return func_net_i;
 	}
-	void input_data(Vector<datatype> input) {
-		if (input.get_size() != prev_layer_size) throw invalid_argument("The size of weight vector and input vector don't match");
-		if (inputs.get_size() == 0) {
-			inputs.set_size(prev_layer_size);
-		}
-		inputs = input;
-	}
-	void input_data(datatype data, int from_node_num) {
-		if (from_node_num < 0 || from_node_num >= prev_layer_size) throw invalid_argument("No such node is present in last layer");
-		if (inputs.get_size() == 0) {
-			inputs.set_size(prev_layer_size);
-		}
-		inputs[from_node_num] = data;
-	}
+	//void input_data(Vector<datatype> input) {
+	//	if (input.get_size() != prev_layer_size) throw invalid_argument("The size of weight vector and input vector don't match");
+	//	if (inputs.get_size() == 0) {
+	//		inputs.set_size(prev_layer_size);
+	//	}
+	//	inputs = input;
+	//}
+	//void input_data(datatype data, int from_node_num) {
+	//	if (from_node_num < 0 || from_node_num >= prev_layer_size) throw invalid_argument("No such node is present in last layer");
+	//	if (inputs.get_size() == 0) {
+	//		inputs.set_size(prev_layer_size);
+	//	}
+	//	inputs[from_node_num] = data;
+	//}
 	void set_print_mode(NEURON_PRINT_MODE mode)
 	{
 		print_mode = mode;
@@ -171,15 +171,15 @@ std::ostream& operator<<(std::ostream& out, const Neuron<datatype>& neuron)
 		out << "Weights: " << neuron.weights;
 	}
 
-	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_BIAS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	{
-		out << "Bias: " << neuron.data << '\n';
-	}
+	//if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_BIAS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
+	//{
+	//	out << "Bias: " << neuron.bias << '\n';
+	//}
 
-	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_INPUTS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	{
-		out << "Inputs: " << neuron.inputs;
-	}
+	//if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_INPUTS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
+	//{
+	//	out << "Inputs: " << neuron.inputs;
+	//}
 
 	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_OUTPUTS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
 	{

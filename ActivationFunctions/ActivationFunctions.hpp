@@ -19,12 +19,12 @@ namespace ActivationFunctions {
     
     template <typename T>
     T b_binary(T x) {
-        return x > 0.0 ? x : (- 1.0 * x);
+        return x > 0.0 ? 1.0 : (- 1.0);
     }
     
     template <typename T>
     T u_binary(T x) {
-        return x > 0.0 ? x : (0.0);
+        return x > 0.0 ? 1.0 : (0.0);
     }  
     
     template <typename T>

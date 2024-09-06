@@ -1,3 +1,4 @@
+#pragma once
 enum VECTOR_PRINT_MODE
 {
 	VECTOR_PRINT_MODE_NONE = -1,

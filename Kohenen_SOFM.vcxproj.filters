@@ -48,6 +48,15 @@
     <ClCompile Include="Enums\ACTIVATION_FUNCTION_ENUM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enums\MLP_MODE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\MLP_PRINT_MODE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\LEARNING_RULES_ENUM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Vector.hpp">
@@ -59,5 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="README.md" />
+    <None Include=".gitattributes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
 </Project>

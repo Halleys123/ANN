@@ -1,40 +1,76 @@
 #include <iostream>
-#include <Layer.cpp>
+#include <MLP.cpp>
+#include <random>
 
 using namespace std;
 
-// Make a timelapse programming Kohenen self organizing feature map in cpp
+double generate_random_double(double lower_bound, double upper_bound) {
+    // Use random_device to seed the random number generator
+    std::random_device rd;
+
+    // Mersenne Twister 19937 generator seeded with random_device
+    std::mt19937 gen(rd());
+
+    // Uniform distribution to generate values in the range [lower_bound, upper_bound]
+    std::uniform_real_distribution<> distr(lower_bound, upper_bound);
+
+    // Generate and return the random double
+    return distr(gen);
+}
 
 int main()
 {
-   /* Layer<double> layer(10, LAYER_TYPE::HIDDEN, 7);
-    layer.set_max_node_weight(10);
-    Layer<double> laye1(5, LAYER_TYPE::HIDDEN, 10);
-    cout << layer;
-    cout << laye1;*/
-    try {
-        /*Neuron<double> neuron(LAYER_TYPE::HIDDEN, 2);
-        neuron.set_activation_type(ACTIVATION_FUNC::SWISH);*/
-        //neuron.set_print_mode(/*NEURON_PRINT_MODE_ID*/);
-        /*Vector<double> inputs(2);
-        inputs[0] = 5;
-        inputs[1] = 5;
-        neuron.modify_weight(0.3, 0);
-        neuron.modify_weight(0.6, 1);
+    try
+    {
+        double lower = -10.0;
+        double upper = 10.0;
+        const int layer_count = 2;
+        const int total_presentation = 5;
+        
+        const int total_input_nodes = 2;
+        const int total_ouput_nodes = 2;
 
-        neuron.input_data(inputs);
-        neuron.generate_outputs();
-        cout << neuron;
-        cout << neuron.get_net_i() << endl;
-        cout << neuron.get_activated_net_i();*/
 
-        Layer<double> layer(5, LAYER_TYPE::HIDDEN, 5);
-        layer.set_max_node_weight(5.0);
-        cout << layer;
+        double** inputs = new double* [total_presentation];
+        for (int i = 0; i < total_presentation; i++) {
+            inputs[i] = new double[total_input_nodes];
+        }
+        double** desired_outputs = new double* [total_presentation];
+        for (int i = 0; i < total_presentation; i++) {
+            desired_outputs[i] = new double[total_ouput_nodes];
+        }
+
+
+        int* nodes_per_layer = new int[layer_count];
+        
+        nodes_per_layer[0] = total_input_nodes;
+        nodes_per_layer[1] = total_ouput_nodes;
+
+        // used to save input for various iternations
+        for (int i = 0; i < total_presentation; i++) {
+            for (int j = 0; j < total_input_nodes; j++) {
+                inputs[i][j] = -1 * generate_random_double(lower, upper);
+            }
+        }   
+        for (int i = 0; i < total_presentation; i++) {
+            for (int j = 0; j < total_ouput_nodes; j++) {
+                desired_outputs[i][j] = 5;
+            }
+        }
+
+
+        MLP<double> mlp(layer_count, nodes_per_layer);
+
+        mlp.init_node_weights(0, 1.0, 1.0);
+
+        mlp.input_presentations(total_presentation, inputs);
+        mlp.set_output_data(total_presentation, desired_outputs);
+
+        cout << mlp.generate_output_test();
+        cout << mlp;
     }
-    catch (exception e) {
-
-
+    catch (exception e)
+    {
         cout << e.what();
     }
     return 0;

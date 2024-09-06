@@ -1,3 +1,4 @@
+#pragma once
 enum NEURON_PRINT_MODE
 {
     NEURON_PRINT_MODES_NONE = -1,

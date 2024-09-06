@@ -1,3 +1,4 @@
+#pragma once
 enum LAYER_PRINT_MODE {
     LAYER_PRINT_MODE_NONE = -1,
     LAYER_PRINT_MODE_NUMBER = 0,       

@@ -139,6 +139,9 @@
     <ClCompile Include="Enums\ACTIVATION_FUNCTION_ENUM.cpp" />
     <ClCompile Include="Enums\LAYER_PRINT_MODE.cpp" />
     <ClCompile Include="Enums\LAYER_TYPES_ENUM.cpp" />
+    <ClCompile Include="Enums\LEARNING_RULES_ENUM.cpp" />
+    <ClCompile Include="Enums\MLP_MODE.cpp" />
+    <ClCompile Include="Enums\MLP_PRINT_MODE.cpp" />
     <ClCompile Include="Enums\NEURON_PRINT_MODE_ENUM.cpp" />
     <ClCompile Include="Enums\VECTOR_PRINT_MODE_ENUM.cpp" />
     <ClCompile Include="Kohenen_SOFM.cpp" />
@@ -148,7 +151,12 @@
     <ClInclude Include="Headers\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitattributes" />
     <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

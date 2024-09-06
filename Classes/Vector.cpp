@@ -9,21 +9,28 @@ class Vector
 private:
 	int size = 0;
 	datatype *data;
+
 protected:
 	bool initiated = true;
 	int c_PRINT_MODE = VECTOR_PRINT_MODE::VECTOR_PRINT_MODE_DATA;
+
 private:
-	void is_initiated() {
-		if (!initiated) throw std::invalid_argument("Vector is not initialized");
+	void is_initiated()
+	{
+		if (!initiated)
+			throw std::invalid_argument("Vector is not initialized");
 	}
-	void is_valid_operation(const Vector& other) {
+	void is_valid_operation(const Vector &other)
+	{
 		if (other.get_size() != size)
 		{
 			throw std::invalid_argument("Vector sizes do not match");
 		}
 	}
+
 public:
-	Vector() {
+	Vector()
+	{
 		data = new datatype[0];
 		initiated = false;
 	}
@@ -74,7 +81,17 @@ public:
 	Vector operator+(const Vector &other)
 	{
 		is_initiated();
-		is_valid_operation();
+		is_valid_operation(other);
+		Vector result = Vector(size);
+		for (int i = 0; i < size; i++)
+		{
+			result.data[i] = data[i] + other.data[i];
+		}
+		return result;
+	}
+	Vector operator* (const Vector& other) {
+		is_initiated();
+		is_valid_operation(other);
 		Vector result = Vector(size);
 		for (int i = 0; i < size; i++)
 		{
@@ -85,25 +102,37 @@ public:
 	Vector operator-(const Vector &other)
 	{
 		is_initiated();
-		is_valid_operation();
+		is_valid_operation(other);
 		Vector result = Vector(size);
 		for (int i = 0; i < size; i++)
 		{
-			result.data[i] = data[i] - other.data[i];
+			result.data[i] = data[i] * other.data[i];
 		}
 		return result;
 	}
-	Vector operator*(int scaler) {
-
-	}
-	void set_size(int size) {
-		if (!initiated) {
-			this->initiated = true;
-			this->size = size;
-			data = new datatype[size];
-			return;
+	Vector operator*(int scaler)
+	{
+		is_initiated();
+		Vector result = Vector(size);
+		for (int i = 0; i < size; i++)
+		{
+			result.data[i] = data[i] * scaler;
 		}
-		throw std::invalid_argument("Array is already initiated and can't be resized\nIf you want to resize the array delete the current one and use a new one");
+		return result;
+	}
+	void set_size(int size)
+	{
+		if (initiated)
+		{
+			delete[] data;
+		}
+		this->size = size;
+		data = new datatype[size];
+		for (int i = 0; i < size; i++)
+		{
+			data[i] = 0;
+		}
+		initiated = true;
 	}
 	int get_size() const
 	{
@@ -120,8 +149,10 @@ public:
 template <typename datatype>
 std::ostream &operator<<(std::ostream &out, const Vector<datatype> &v)
 {
-	if (!v.initiated) throw std::invalid_argument("Vector is not initialized");
-	if (v.c_PRINT_MODE == VECTOR_PRINT_MODE::VECTOR_PRINT_MODE_NONE) {
+	if (!v.initiated)
+		throw std::invalid_argument("Vector is not initialized");
+	if (v.c_PRINT_MODE == VECTOR_PRINT_MODE::VECTOR_PRINT_MODE_NONE)
+	{
 		cout << "c_PRINT_MODE for Vector is set to NONE" << endl;
 		return out;
 	}
