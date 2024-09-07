@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\Headers;D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -91,7 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\Headers;D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\Headers;D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\C++\Complete Projects\Kohenen_SOFM\Headers;D:\Projects\C++\Complete Projects\Kohenen_SOFM\ActivationFunctions;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Classes;D:\Projects\C++\Complete Projects\Kohenen_SOFM\Enums;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,29 +134,21 @@
     <ClCompile Include="Classes\Layer.cpp" />
     <ClCompile Include="Classes\MLP.cpp" />
     <ClCompile Include="Classes\Neuron.cpp" />
-    <ClCompile Include="Classes\SOFM.cpp" />
-    <ClCompile Include="Classes\Vector.cpp" />
-    <ClCompile Include="Enums\ACTIVATION_FUNCTION_ENUM.cpp" />
-    <ClCompile Include="Enums\LAYER_PRINT_MODE.cpp" />
-    <ClCompile Include="Enums\LAYER_TYPES_ENUM.cpp" />
-    <ClCompile Include="Enums\LEARNING_RULES_ENUM.cpp" />
-    <ClCompile Include="Enums\MLP_MODE.cpp" />
-    <ClCompile Include="Enums\MLP_PRINT_MODE.cpp" />
-    <ClCompile Include="Enums\NEURON_PRINT_MODE_ENUM.cpp" />
-    <ClCompile Include="Enums\VECTOR_PRINT_MODE_ENUM.cpp" />
+    <ClCompile Include="Enums\LEARNING_RULE.cpp" />
+    <ClCompile Include="Enums\MODE.cpp" />
     <ClCompile Include="Kohenen_SOFM.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ActivationFunctions\ActivationFunctions.hpp" />
-    <ClInclude Include="Headers\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
+    <None Include="Enums\ACTIVATION.cpp" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Headers\print_vec.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

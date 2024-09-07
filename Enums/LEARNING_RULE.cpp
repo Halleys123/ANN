@@ -1,0 +1,8 @@
+#pragma once
+
+enum LEARNING_RULE
+{
+    PERCEPTRON,
+    DELTA_RULE,
+    GENERALIZED_DELTA_RULE
+};

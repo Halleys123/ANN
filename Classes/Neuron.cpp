@@ -1,249 +1,87 @@
-#include <Vector.cpp>
-#include <string>
-#include "ActivationFunctions.hpp"
-#include <NEURON_PRINT_MODE_ENUM.cpp>
-#include <LAYER_TYPES_ENUM.cpp>
-#include "ACTIVATION_FUNCTION_ENUM.cpp"
+#pragma once
 
-template <typename datatype>
+#include <vector>
+#include "print_vec.h"
+#include "ACTIVATION.cpp"
+
+using namespace std;
+
 class Neuron
 {
-	static int total_nodes;
 private:
-	int node_number = 0;
-	datatype bias = NULL;
-	double lambda = 0.3;
-	// Saves value of output that has not been modified using activation function.
-	datatype net_i = 0;
-	// Saves value of output that is modified with activation function.
-	datatype func_net_i = 0;
-
-	Vector<datatype> weights;
-	//Vector<datatype> inputs;
-
-	int prev_layer_size = 0; // For using in the size of weights
-	bool initiated = true;
-
-	LAYER_TYPE layer = LAYER_TYPE::INPUT;
-	NEURON_PRINT_MODE print_mode = NEURON_PRINT_MODES_NONE;
-	ACTIVATION_FUNC activation_type = ACTIVATION_FUNC::B_SIGMOID;
+	vector<double> weights;
+	double bias = 0.0;
+	double net_i = 0.0;
+	double o_i = 0.0;
+	ACTIVATION function = UNIPOLAR_BINARY;
 
 public:
-	Neuron()
+	Neuron() {}
+	Neuron(vector<double> weights, double bias = 0.0, ACTIVATION function = UNIPOLAR_BINARY) : bias(bias), function(function)
 	{
-		Neuron::total_nodes += 1;
-		node_number = Neuron<datatype>::total_nodes;
-		initiated = false;
+		this->weights = weights;
 	}
-	Neuron(LAYER_TYPE layer, int prev_layer_size = 1) : layer(layer), prev_layer_size(prev_layer_size)
+	void set_activation(ACTIVATION func)
 	{
-		Neuron::total_nodes += 1;
-		node_number = Neuron<datatype>::total_nodes;
-		// Any layer even the input layer can't have size of previous layer less than 1
-		// As this is logically incorrect to have size of input layer to be less than 1
-		if (!initiated)
-			throw std::invalid_argument("Neuron is not initialized properly.");
-		if (layer == LAYER_TYPE::INPUT)
+		function = func;
+	}
+	void set_weights(vector<double> weights)
+	{
+		this->weights = weights;
+	}
+	double get_weight(int pos) {
+		return weights[pos];
+	}
+	double compute(vector<double> inputs)
+	{
+		if (inputs.size() != weights.size()) {
+			throw invalid_argument("Input size does not match weight size");
+		}
+
+		net_i = 0.0;
+		for (int i = 0; i < inputs.size(); i++)
 		{
-			weights.set_size(1);
-			weights[0] = 1;
-		}
-		else
-		{
-			if (prev_layer_size < 1)
-			{
-				initiated = false;
-				throw std::invalid_argument("Hidden/Output layers can't be initiated without defining previous layer's size");
-			}
-			weights.set_size(prev_layer_size);
-			for (int i = 0; i < prev_layer_size; i++)
-			{
-				weights[i] = (datatype)1;
-			}
-		}
-		weights.set_print_mode(VECTOR_PRINT_MODE::VECTOR_PRINT_MODE_DATA);
-	}
-	void modify_weights(const Vector<datatype> &new_weights)
-	{
-		if (weights.get_size() == 0) {
-			weights.set_size(prev_layer_size); 
-		}
-		weights = new_weights;
-	}
-	void modify_weights(datatype vect[], int size) {
-		if (size != prev_layer_size) throw invalid_argument("The size of new weight vector did not match the size of current weight vector\nAborting operation.");
-		if (weights.get_size() == 0) {
-			weights.set_size(prev_layer_size);
-		}
-		for (int i = 0; i < size; i++) {
-			weights[i] = vect[i];
-		}
-	}
-	void modify_weight(datatype data, int position) {
-		if (position < 0 || position >= prev_layer_size) throw out_of_range("No node at index " + to_string(position) + " is present in the last layer.");
-		if (weights.get_size() == 0) {
-			weights.set_size(prev_layer_size);
-		}
-		weights[position] = data;
-	}
-	datatype generate_outputs(Vector<datatype> inputs) {
-		for (int i = 0; i < prev_layer_size; i++) {
 			net_i += inputs[i] * weights[i];
 		}
-		switch (activation_type) {
-		case ACTIVATION_FUNC::B_SIGMOID:
-			func_net_i = ActivationFunctions::b_sigmoid(net_i, lambda);
-			break;
-		case ACTIVATION_FUNC::U_SIGMOID:
-			func_net_i = ActivationFunctions::u_sigmoid(net_i, lambda);
-			break;
-		case ACTIVATION_FUNC::U_BINARY:
-			func_net_i = ActivationFunctions::u_binary(net_i);
-			break;
-		case ACTIVATION_FUNC::B_BINARY:
-			func_net_i = ActivationFunctions::b_binary(net_i);
-			break;
-		//case ACTIVATION_FUNC::SWISH:
-		//	func_net_i = ActivationFunctions::swish(net_i);
-		//	break;
-		//case ACTIVATION_FUNC::RELU:
-		//	func_net_i = ActivationFunctions::relu(net_i);
-		//	break;
-		//case ACTIVATION_FUNC::TANH:
-		//	func_net_i = ActivationFunctions::tanh_func(net_i);
-		//	break;
-		//case ACTIVATION_FUNC::LEAKY_RELU:
-		//	func_net_i = ActivationFunctions::leaky_relu(net_i);
-		//	break;
-		//case ACTIVATION_FUNC::LINEAR:
-		//	func_net_i = ActivationFunctions::linear(net_i);
-		//	break;
-		default:
-			throw std::invalid_argument("Invalid activation type");
-		}
-		return func_net_i;
-	}
-	datatype get_net_i() {
-		return net_i;
-	}
-	datatype get_activated_net_i() {
-		return func_net_i;
-	}
-	//void input_data(Vector<datatype> input) {
-	//	if (input.get_size() != prev_layer_size) throw invalid_argument("The size of weight vector and input vector don't match");
-	//	if (inputs.get_size() == 0) {
-	//		inputs.set_size(prev_layer_size);
-	//	}
-	//	inputs = input;
-	//}
-	//void input_data(datatype data, int from_node_num) {
-	//	if (from_node_num < 0 || from_node_num >= prev_layer_size) throw invalid_argument("No such node is present in last layer");
-	//	if (inputs.get_size() == 0) {
-	//		inputs.set_size(prev_layer_size);
-	//	}
-	//	inputs[from_node_num] = data;
-	//}
-	void set_print_mode(NEURON_PRINT_MODE mode)
-	{
-		print_mode = mode;
-	}
-	void set_activation_type(ACTIVATION_FUNC type) {
-		activation_type = type;
-	}
-	template <typename datatype>
-	friend std::ostream &operator<<(std::ostream &out, const Neuron<datatype> &neuron);
-};
-
-template <typename datatype>
-std::ostream& operator<<(std::ostream& out, const Neuron<datatype>& neuron)
-{
-	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_NONE)
-	{
-		out << "NEURON_PRINT_MODE set to NONE\n";
-		return out;
-	}
-	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODE_ID || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	{
-		out << "Node Number : " << neuron.node_number << endl;
-	}
-	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_WEIGHTS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	{
-		out << "Weights: " << neuron.weights;
-	}
-
-	//if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_BIAS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	//{
-	//	out << "Bias: " << neuron.bias << '\n';
-	//}
-
-	//if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_INPUTS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	//{
-	//	out << "Inputs: " << neuron.inputs;
-	//}
-
-	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_OUTPUTS || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	{
-		if (neuron.net_i != NULL) {
-			out << "Net Output (before activation): " << (neuron.net_i) << '\n';
-		}
-		else {
-			out << "Net Output (before activation): pending..." << '\n';
-		}
-		if (neuron.func_net_i != NULL) {
-
-			out << "Activated Output: " << neuron.func_net_i << '\n';
-		}
-		else {
-			out << "Activated Output: pending..." << '\n';
-		}
-
-	}
-
-	if (neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ACTIVATION_FUNC || neuron.print_mode == NEURON_PRINT_MODE::NEURON_PRINT_MODES_ALL)
-	{
-		out << "Activation Function: ";
-		switch (neuron.activation_type)
+		net_i += bias;
+		switch (function)
 		{
-		case ACTIVATION_FUNC::B_SIGMOID:
-			out << "Bipolar Sigmoid\n";
+		case UNIPOLAR_SIGMOID:
+			o_i = 1 / (1 + exp(-net_i));
 			break;
-		case ACTIVATION_FUNC::U_SIGMOID:
-			out << "Unipolar Sigmoid\n";
+		case BIPOLAR_SIGMOID:
+			o_i = (2 / (1 + exp(-net_i))) - 1;
 			break;
-		case ACTIVATION_FUNC::U_BINARY:
-			out << "Unipolar Binary\n";
+		case UNIPOLAR_BINARY:
+			o_i = net_i > 0 ? 1 : 0;
 			break;
-		case ACTIVATION_FUNC::B_BINARY:
-			out << "Bipolar Binary\n";
+		case BIPOLAR_BINARY:
+			o_i = net_i > 0 ? 1 : -1;
 			break;
-		//case ACTIVATION_FUNC::SWISH:
-		//	out << "Swish\n";
-		//	break;
-		//case ACTIVATION_FUNC::RELU:
-		//	out << "ReLU\n";
-		//	break;
-		//case ACTIVATION_FUNC::TANH:
-		//	out << "Tanh\n";
-		//	break;
-		//case ACTIVATION_FUNC::LEAKY_RELU:
-		//	out << "Leaky ReLU\n";
-		//	break;
-		//case ACTIVATION_FUNC::LINEAR:
-		//	out << "Linear\n";
-		//	break;
-		default:
-			out << "Unknown\n";
 		}
+		return o_i;
 	}
-	out << endl;
-	return out;
-}
-
-template <typename T>
-int Neuron<T>::total_nodes = 0;
-
-// Steps to use
-// 1. Initiate the Neuron with a type of layer it is in ( that is INPUT, OUTPUT, HIDDEN )
-// 1a. Set activation function defaults to unipolar sigmoidal
-// 2. Give inputs.
-// 2. Generate outputs
+	friend ostream &operator<<(ostream &os, const Neuron &n)
+	{
+		os << "Weights: " << n.weights << "\n";
+		switch (n.function)
+		{
+		case UNIPOLAR_SIGMOID:
+			os << "Activation Function: Unipolar Sigmoid\n";
+			break;
+		case BIPOLAR_SIGMOID:
+			os << "Activation Function: Bipolar Sigmoid\n";
+			break;
+		case UNIPOLAR_BINARY:
+			os << "Activation Function: Unipolar Binary\n";
+			break;
+		case BIPOLAR_BINARY:
+			os << "Activation Function: Bipolar Binary\n";
+			break;
+		}
+		os << "Bias: " << n.bias << "\n";
+		os << "Net Input: " << n.net_i << "\n";
+		os << "Output: " << n.o_i << "\n";
+		return os;
+	}
+};
