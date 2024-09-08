@@ -44,6 +44,10 @@ public:
             return outputs;
         }
     }
+    vector<double> backward_propogation() {
+        // this will return desired output for previous layer
+
+    }
     double get_weight_from_node(int i, int pos) {
         return neurons[i].get_weight(pos);
     }
