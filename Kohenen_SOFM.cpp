@@ -21,19 +21,19 @@ int main()
         // layer after that tells about layer number
         vector<vector<vector<double>>> weights = {
             {{1}, {1}, {1}},
-            {{0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}}, 
+            {{0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}},   
             {{0.1, 0.3, 0.2, 0.5},{0.1, 0.3, 0.2, 0.5},{0.1, 0.3, 0.2, 0.5},{0.1, 0.3, 0.2, 0.5}},
-            {{ 0.1, 0.3, 0.2, 0.5 }, {0.1, 0.3, 0.2, 0.5}}
+            {{ 0.1, 0.3, 0.2, 0.5 }, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5}, {0.1, 0.3, 0.2, 0.5} }
         };
         // bias outer layers defines a layer inner layer tells bias of each node
-        vector<vector<double>> bias = { {0.0, 0.2, 0.3}, {0.6, 0.2, 0.2, 0.3}, {0.1, 0.7, 0.5, 0.6} , {0.7, 0.6} };
+        vector<vector<double>> bias = { {0.0, 0.2, 0.3}, {0.6, 0.2, 0.2, 0.3}, {0.1, 0.7, 0.5, 0.6} , {0.7, 0.6,0.7, 0.6,0.7, 0.6,0.7, 0.6,0.7, 0.6} };
 
-        vector<int> nodes_per_layer = {3, 4, 4, 2};
-        MLP mlp(2, nodes_per_layer);
-        mlp.set_presentations(total_presentations, inputs, desired);
+        vector<int> nodes_per_layer = {3, 4, 4, 10};
+        MLP mlp(4, nodes_per_layer);
+        mlp.train(total_presentations, inputs, desired);
         mlp.initialize_neurons(weights, bias);
 
-        vector<double> input_test = {0.4, 0.5, 0.3};
+        vector<double> input_test = {0, 0, 0};
         cout << mlp;
         cout << mlp.predict(input_test);
     }

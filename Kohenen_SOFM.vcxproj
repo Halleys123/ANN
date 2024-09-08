@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
+    <Text Include="Models\Model.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\print_vec.h" />

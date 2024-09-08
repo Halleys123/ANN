@@ -49,5 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
+    <Text Include="Models\Model.txt" />
   </ItemGroup>
 </Project>

@@ -12,10 +12,7 @@ class MLP
 {
 private:
     int total_layers = 0;
-    int total_presentations = 0;
     // pehli baar dene pe unique true hoga
-    vector<vector<double>> inputs;
-    vector<vector<double>> desired_outputs;
     vector<vector<vector<double>>> weights;
     vector<vector<double>> bias;
 
@@ -37,11 +34,11 @@ public:
     {
         this->mode = mode;
     }
-    void set_presentations(int total_presentations, vector<vector<double>> inputs, vector<vector<double>> desired_outputs)
+    void train(int total_presentations, vector<vector<double>> inputs, vector<vector<double>> desired_outputs)
     {
-        this->total_presentations = total_presentations;
-        this->inputs = inputs;
-        this->desired_outputs = desired_outputs;
+        for (int i = 0; i < total_presentations; i++) {
+
+        }
     }
     void initialize_neurons(vector<vector<vector<double>>> weights, vector<vector<double>> bias)
     {
