@@ -29,6 +29,12 @@ public:
 	{
 		this->weights = weights;
 	}
+	double get_output() {
+		return o_i;
+	}
+	const vector<double> get_weight() const {
+		return weights;
+	}
 	double get_weight(int pos) {
 		return weights[pos];
 	}

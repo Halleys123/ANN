@@ -32,8 +32,8 @@ private:
         vector<double> outputs = inputs;
         for (int i = 0; i < total_layers; i++)
         {
+            input_to_each_layer.push_back(outputs); // saves input to ith layer
             outputs = layers[i].compute(outputs, i == 0);
-            input_to_each_layer.push_back(outputs); // saves output from ith layer
         }
         return outputs;
     }
@@ -68,18 +68,19 @@ public:
             if (cur_desired.size() != nodes_per_layer[total_layers - 1]) throw invalid_argument("Training cancelled due to invalid size of desired output vector");
             forward_propgation(cur_input, input_to_each_layer);
             // backward propgation
-            // correction in a node = (d - o)*f'(net_i)*X  (X is vector of input to that node this will give del W
-            // for unipolar sigmoid f'(net_i) = f(net_i)(1 - f(net_i)) // actual value
-
-
+            backward_propogation(input_to_each_layer, cur_desired);
         }
     }
-    /*void backward_propogation(vector<double> input_to_last_l, vector<double> desired_output_from_last_layer) {
-        vector<double> desired
-        for (int i = total_layers - 1; i >= 0; i--) {
+    void backward_propogation(vector<vector<double>> input_to_ith_layer, vector<double> desired_output_from_last_layer) {
+        
+        vector<double> desired = desired_output_from_last_layer;
+        vector<double> error_from_next_layer;
+        Layer* next = nullptr;
 
+        for (int i = total_layers - 1; i >= 0; i--) {
+            error_from_next_layer = layers[i].backward_propogation(input_to_ith_layer[i], desired, i == total_layers - 1, next, error_from_next_layer);    
         }
-    }*/
+    }
     vector<double> predict(vector<double> inputs)
     {
         return forward_propgation(inputs);
