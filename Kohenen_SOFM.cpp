@@ -1,45 +1,65 @@
 #include <iostream>
 #include <MLP.cpp>
 #include "print_vec.h"
+#include <random>
 
 using namespace std;
 
+float generateRandomFloat(float min, float max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis(min, max);
+    return dis(gen);
+}
+vector<vector<vector<double>>> dataGenerator(int s) {
+    vector<vector<double>>inputs;
+    vector<vector<double>> outputs;
+    for (int i = 0; i < s; ++i) {
+        double x = generateRandomFloat(0,1);
+        double y = x * x;
+        inputs.push_back({ x });
+        outputs.push_back({ y });
+    }
+    return
+     { inputs,outputs };
+}
 int main()
 {
     try
     {
-        int total_presentations = 3;
-        // same as desired
-        vector<vector<double>> inputs = {
-            {0.2, 0.2, 0.4}, {0.1, 0.1, 0.2}, {0.5, 0.5, 0.5} };
-        // outer most layer represent presentaion number
-        // in that is an array showing ouputs from various nodes
-        vector<vector<double>> desired = {
-            {0.5}, {0.5}, {0.5} };
-        // weights inner tells number of neurons in last layer or weights connected to prev layers each neuron from
-        // given neuron
-        // layer after that tells about layer number
+        int total_presentations = 100;
+        vector<vector<vector<double>>>vec= dataGenerator(total_presentations);
+        vector<vector<double>> inputs = vec[0];
+        vector<vector<double>> desired =vec[1];
+
         vector<vector<vector<double>>> weights = {
-            {{1}, {1}, {1}},
-            {{0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}, {0.2, 0.3, 0.3}},   
-            {{0.1, 0.3, 0.2},{0.1, 0.3, 0.2},{0.1, 0.2, 0.5},{0.3, 0.2, 0.5}},
-            {{ 0.1, 0.3, 0.2, 0.5 }}
+            {{1}},
+            {{generateRandomFloat(-1, 1)},{generateRandomFloat(-1, 1)}, {generateRandomFloat(-1, 1)}},
+            {{generateRandomFloat(-1, 1), generateRandomFloat(-1, 1), generateRandomFloat(-1, 1)}}
         };
-        // bias outer layers defines a layer inner layer tells bias of each node
-        vector<vector<double>> bias = { {0.0, 0.2, 0.3}, {0.6, 0.2, 0.2, 0.3}, {0.1, 0.7, 0.5, 0.6} , {0.7} };
+
+        vector<vector<double>> bias = {
+            {0},
+            {generateRandomFloat(-1, 1), generateRandomFloat(-1, 1), generateRandomFloat(-1, 1)},
+            {generateRandomFloat(-1, 1)}
+        };
+
+        vector<int> nodes_per_layer = { 1, 3, 1 };
 
 
-        vector<int> nodes_per_layer = {3, 3, 4, 1};
-        MLP mlp(4, nodes_per_layer);
+        vector<double> input_test = { 0.23 };
+        MLP mlp(3, nodes_per_layer);
         mlp.initialize_neurons(weights, bias);
-
         mlp.train(total_presentations, inputs, desired);
+        while (true) {
+            double inp;
+            cin >> inp;
 
-        vector<double> input_test = {0, 0, 0};
+            cout << mlp.predict({ inp}) << endl;
+        }
 
-        cout << mlp;
-        cout << mlp.predict(input_test);
-    }
+}
+    
     catch (exception e)
     {
         cout << e.what();

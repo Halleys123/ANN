@@ -143,6 +143,7 @@
     <None Include=".gitignore" />
     <None Include="Enums\ACTIVATION.cpp" />
     <None Include="README.md" />
+    <None Include="test_data.js" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />

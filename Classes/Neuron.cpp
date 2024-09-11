@@ -25,9 +25,20 @@ public:
 	{
 		function = func;
 	}
+	void set_bias(double new_bias) {
+		this->bias = new_bias;
+	}
+	double get_bias() {
+		return bias;
+	}
 	void set_weights(vector<double> weights)
 	{
 		this->weights = weights;
+	}
+	void set_weights(int pos, double value)
+	{
+		if (pos < 0 || pos >= weights.size()) throw invalid_argument("Position is out of bounds");
+		this->weights[pos] = value;
 	}
 	double get_output() {
 		return o_i;
@@ -36,20 +47,28 @@ public:
 		return weights;
 	}
 	double get_weight(int pos) {
+		if (pos < 0 || pos >= weights.size()) throw invalid_argument("Position is out of bounds");
 		return weights[pos];
 	}
-	double compute(vector<double> inputs)
+	double get_net_i() {
+		return net_i;
+	}
+	double compute(vector<double> inputs, bool input_layer = true)
 	{
 		if (inputs.size() != weights.size()) {
 			throw invalid_argument("Input size does not match weight size");
 		}
-
 		net_i = 0.0;
 		for (int i = 0; i < inputs.size(); i++)
 		{
 			net_i += inputs[i] * weights[i];
+			//cout << net_i << " + " << inputs[i] << " * " << weights[i] << " = " << net_i << endl;
 		}
 		net_i += bias;
+		if (input_layer) {
+			o_i = net_i;
+			return o_i;
+		}
 		switch (function)
 		{
 		case UNIPOLAR_SIGMOID:
@@ -63,6 +82,8 @@ public:
 			break;
 		case BIPOLAR_BINARY:
 			o_i = net_i > 0 ? 1 : -1;
+		//case ADAM:
+			//o_i = 
 			break;
 		}
 		return o_i;
@@ -86,7 +107,7 @@ public:
 			break;
 		}
 		os << "Bias: " << n.bias << "\n";
-		os << "Net Input: " << n.net_i << "\n";
+		os << "net_i: " << n.net_i << "\n";
 		os << "Output: " << n.o_i << "\n";
 		return os;
 	}
