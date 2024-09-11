@@ -1,3 +1,5 @@
+#pragma once
+
 enum ACTIVATION
 {
     UNIPOLAR_SIGMOID = 0,

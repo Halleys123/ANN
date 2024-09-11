@@ -1,5 +1,4 @@
-#ifndef VECTOROUTPUT_H
-#define VECTOROUTPUT_H
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -40,4 +39,3 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<std::ve
     os << "\n]";
     return os;
 }
-#endif

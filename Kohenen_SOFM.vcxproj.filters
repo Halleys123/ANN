@@ -24,7 +24,7 @@
     <ClCompile Include="Classes\Layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\MLP.cpp">
+    <ClCompile Include="Headers\MLP.h">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Enums\LEARNING_RULE.cpp">
@@ -33,9 +33,24 @@
     <ClCompile Include="Enums\MODE.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\data_generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\MLP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\print_vec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\data_generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Neuron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -46,6 +61,7 @@
     <None Include="Enums\ACTIVATION.cpp">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="test_data.js" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
