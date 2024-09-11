@@ -34,7 +34,7 @@ public:
 
 	double compute(vector<double> inputs, bool input_layer = true);
 
-	friend ostream& operator<<(ostream& os, const Neuron& n)
+	friend ostream &operator<<(ostream &os, const Neuron &n)
 	{
 		os << "Weights: " << n.weights << "\n";
 		switch (n.function)

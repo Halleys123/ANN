@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 
 double generateRandomNumBetween(double min, double max);

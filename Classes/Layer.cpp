@@ -4,7 +4,7 @@
 int Layer::get_size() {
     return total_nodes;
 }
-vector<double> Layer::compute(vector<double> inputs, bool unique_inputs = false)
+vector<double> Layer::compute(vector<double> inputs, bool unique_inputs)
 {
     // isko nahi likhenge then the code breaks don't move it. !!!!!!!important - What happens - if wrong sized input is given then program breaks;
     if (unique_inputs && inputs.size() != total_nodes) throw invalid_argument("Input Vector size should be " + to_string(total_nodes) + " but is " + to_string(inputs.size()));
@@ -22,7 +22,7 @@ vector<double> Layer::compute(vector<double> inputs, bool unique_inputs = false)
     }
     return outputs;
 }
-vector<double> Layer::backward_propogation(vector<double> input = {}, bool output = false, vector<double> desired = {}, vector<double> error_from_next = {}, vector<double> cur_output = {}, double eta = 0.5) {
+vector<double> Layer::backward_propogation(vector<double> input, bool output, vector<double> desired, vector<double> error_from_next, vector<double> cur_output, double eta) {
     vector<double> delta_w_prev(input.size(), 0);
 
     double o_i;

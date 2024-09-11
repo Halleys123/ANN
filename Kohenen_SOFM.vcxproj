@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="Classes\Layer.cpp" />
     <ClCompile Include="Classes\MLP.cpp" />
+    <ClCompile Include="Enums\YES_NO_ENUM.cpp" />
     <ClCompile Include="Headers\MLP.h" />
     <ClCompile Include="Classes\Neuron.cpp" />
     <ClCompile Include="Enums\LEARNING_RULE.cpp" />
@@ -148,6 +149,8 @@
     <None Include="test_data.js" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="x64\Debug\train.txt" />
+    <Text Include="training_data.txt" />
     <Text Include="LICENSE.txt" />
     <Text Include="Models\Model.txt" />
   </ItemGroup>

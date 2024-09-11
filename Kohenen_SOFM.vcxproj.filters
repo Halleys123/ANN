@@ -39,6 +39,9 @@
     <ClCompile Include="Classes\MLP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enums\YES_NO_ENUM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\print_vec.h">
@@ -66,5 +69,7 @@
   <ItemGroup>
     <Text Include="LICENSE.txt" />
     <Text Include="Models\Model.txt" />
+    <Text Include="training_data.txt" />
+    <Text Include="x64\Debug\train.txt" />
   </ItemGroup>
 </Project>

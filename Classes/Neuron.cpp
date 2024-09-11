@@ -32,7 +32,7 @@ double Neuron::get_weight(int pos) {
 double Neuron::get_net_i() {
 	return net_i;
 }
-double Neuron::compute(vector<double> inputs, bool input_layer = true)
+double Neuron::compute(vector<double> inputs, bool input_layer)
 {
 	if (inputs.size() != weights.size()) {
 		throw invalid_argument("Input size does not match weight size");

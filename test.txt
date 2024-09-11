@@ -1,0 +1,39 @@
+Weights: [1]
+Activation Function: Unipolar Sigmoid
+Bias: 0.504049
+net_i: 0
+Output: 0
+
+
+Weights: [0.652422]
+Activation Function: Unipolar Sigmoid
+Bias: 0.944591
+net_i: 0
+Output: 0
+
+Weights: [-0.73043]
+Activation Function: Unipolar Sigmoid
+Bias: 0.321035
+net_i: 0
+Output: 0
+
+Weights: [0.295032]
+Activation Function: Unipolar Sigmoid
+Bias: 0.886818
+net_i: 0
+Output: 0
+
+Weights: [0.918771]
+Activation Function: Unipolar Sigmoid
+Bias: 0.0695811
+net_i: 0
+Output: 0
+
+
+Weights: [0.536413, -0.417024, -0.26294, 0.885079]
+Activation Function: Unipolar Sigmoid
+Bias: 0.983051
+net_i: 0
+Output: 0
+
+
