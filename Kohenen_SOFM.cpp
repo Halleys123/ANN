@@ -66,7 +66,7 @@ int main()
 
         MLP mlp(size, nodes_per_layer);
 
-        mlp.set_learning_const(0.5);
+        mlp.set_learning_const(0.7);
         mlp.set_error_limit(0.01);
         char ch;
         cout << "Do want to print the error after each presentation? (y/n): ";
